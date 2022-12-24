@@ -38,7 +38,8 @@ const logOut=()=>{
   return (
     <div className="">
   <BrowserRouter>
-     <Routes>
+     <Routes>{
+      }
     <Route  exact path="/" element={<Home signInWithGoogle={signInWithGoogle} user={user} logOut={logOut}/>} />
     <Route path="/chat" element={<Chat user={user}/>} />
    </Routes>

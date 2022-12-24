@@ -76,8 +76,7 @@ console.log('sucsess',messages)
         return (
           <div key={message.id}>
             <p>{user?.displayName}</p>
-      <img src={user?.photoURL} />
-
+            <img src={user?.photoURL} />
             <p>{message.text}</p>
            </div>
         )
