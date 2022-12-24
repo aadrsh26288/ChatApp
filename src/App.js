@@ -12,7 +12,7 @@ import {BrowserRouter, Routes, Route, Outlet, Link } from "react-router-dom";
 function App() {
     const [authh,setAuth] = useState(false)
     const [user, setUser] = useState({})
-    const [currentUser,setCurrentUser] = useState(user.displayName)
+    // const [currentUser,setCurrentUser] = useState(user.displayName)
     const signInWithGoogle = () => {
     signInWithPopup(auth, provider).then((result) => {
       setAuth(true)
@@ -22,7 +22,7 @@ function App() {
     useEffect(()=>{
     onAuthStateChanged(auth,(currentUser)=>{
       setUser(currentUser)
-      console.log('auth',currentUser.photoURL)
+      // console.log('auth',currentUser.photoURL)
       
     })
   },[])
