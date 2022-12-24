@@ -75,8 +75,8 @@ console.log('sucsess',messages)
       messages.map((message)=>{
         return (
           <div key={message.id}>
-            <p>{user?.displayName}</p>
-            <img src={user?.photoURL} />
+            {/* <p>{user?.displayName}</p>
+            <img src={user?.photoURL} /> */}
             <p>{message.text}</p>
            </div>
         )
