@@ -1,33 +1,35 @@
 import { clearIndexedDbPersistence, QuerySnapshot } from 'firebase/firestore'
 import React,{useEffect,useState} from 'react'
 import { db } from '../FirebaseConfig'
-import { onSnapshot,collection, getDocs, addDoc, deleteDoc, doc,orderBy ,  updateDoc,getDoc } from "firebase/firestore";
-
+import { serverTimestamp,query,onSnapshot,collection, getDocs, addDoc, deleteDoc, doc,orderBy ,limit,  updateDoc,getDoc } from "firebase/firestore";
+import { formatRelative } from 'date-fns';
+import { v4 as uuidv4 } from 'uuid';
 
 const Chat = ({user}) => {
   const [messages,setMessages] =useState([])
-
   const [chat,setChats] = useState('')
+  const [photo,setPhoto] = useState(user?.photoURL)
+  console.log(photo)
+  const id  = uuidv4()
+  console.log(id)
 
-  //   useEffect(()=>{
-  //   getmessages()
-  // },[])
 console.log('userrr', user)
   useEffect(() => {
-   const unsub =    onSnapshot(collection(db,"messages"), (snapshot) =>
+    const collectionRef =query(collection(db, "messages"),orderBy('createdAt'))
+   const unsub= onSnapshot(collectionRef, (snapshot) =>
    setMessages(snapshot.docs.map((doc) => doc.data()))
-  );
+  )
   return unsub
 
   
     },[])
 
 
-      const sendMessages = async (e)=>{
+    const sendMessages = async (e)=>{
       e.preventDefault();
     const chatsCollectionRef = collection(db, "messages")
     try{
-     await addDoc(chatsCollectionRef,{text:chat})
+     await addDoc(chatsCollectionRef,{text:chat,createdAt:serverTimestamp(),id:id,imgUrl:photo})
      console.log('sucsess')
     }
   catch(err){
@@ -66,6 +68,17 @@ console.log('userrr', user)
 
    
 console.log('sucsess',messages)
+const formatDate = date => {
+  let formattedDate = '';
+  if (date) {
+    // Convert the date in words relative to the current date
+    formattedDate = formatRelative(date, new Date());
+    // Uppercase the first letter
+    formattedDate =
+      formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
+  }
+  return formattedDate;
+};
 
   return (
     <div>
@@ -75,8 +88,12 @@ console.log('sucsess',messages)
       messages.map((message)=>{
         return (
           <div key={message.id}>
-            <p>{user?.displayName}</p>
-            <img src={user?.photoURL} />
+            {message.createdAt?.seconds ? (
+            <span >
+              {formatDate(new Date(message.createdAt.seconds * 1000))}
+            </span>
+          ) : null}
+          <img src={message.imgUrl} alt="img"/>
             <p>{message.text}</p>
            </div>
         )
