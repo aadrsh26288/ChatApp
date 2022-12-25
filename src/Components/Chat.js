@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 const Chat = ({user}) => {
   const [messages,setMessages] =useState([])
   const [chat,setChats] = useState('')
-  const [photo,setPhoto] = useState(user?.photoURL)
+  const photo=user.photoURL
   console.log(photo)
   const id  = uuidv4()
   console.log(id)
