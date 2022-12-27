@@ -69,7 +69,7 @@ const Chat = ({ user, logOut }) => {
 
   return (
     <div className="bg-[#2C2A32] text-white">
-      <div className=" relative max-w-[90%] overflow-auto h-[480px] mx-auto m-5 flex flex-col gap-5   p-4">
+      <div className=" relative max-w-[90%] overflow-auto  lg:h-[480px] mx-auto m-5 flex flex-col gap-5   p-4">
         {/* <h1 className="text-center p-2">Mychat Room</h1> */}
 
         {messages.map((message) => {
