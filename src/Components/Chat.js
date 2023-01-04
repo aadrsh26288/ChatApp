@@ -16,17 +16,14 @@ import {
 } from "firebase/firestore";
 import { formatRelative } from "date-fns";
 import { v4 as uuidv4 } from "uuid";
-import{BsFillCursorFill} from 'react-icons/bs'
+
 
 const Chat = ({ user, logOut }) => {
   const [messages, setMessages] = useState([]);
   const [chat, setChats] = useState("");
   const photo = user.photoURL;
-  console.log(photo);
   const id = uuidv4();
-  console.log(id);
 
-  console.log("userrr", user);
   useEffect(() => {
     const collectionRef = query(
       collection(db, "messages"),
@@ -54,7 +51,7 @@ const Chat = ({ user, logOut }) => {
     }
   };
 
-  console.log("sucsess", messages);
+
   const formatDate = (date) => {
     let formattedDate = "";
     if (date) {
@@ -69,7 +66,8 @@ const Chat = ({ user, logOut }) => {
 
   return (
     <div className="bg-[#2C2A32] text-white">
-      <div className=" relative max-w-[90%] overflow-auto  lg:h-[480px] mx-auto m-5 flex flex-col gap-5   p-4">
+      <h1 className="text-center text-3xl font-semibold p-3">My Chat Room</h1>
+      <div className=" relative w-full md:max-w-[90%] overflow-auto  lg:h-[350px] mx-auto m-5 flex flex-col gap-5   p-4">
         {/* <h1 className="text-center p-2">Mychat Room</h1> */}
 
         {messages.map((message) => {
