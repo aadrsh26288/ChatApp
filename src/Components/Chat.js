@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../FirebaseConfig";
+import { useAuthState } from "react-firebase-hooks/auth";
+
+
 import {
   serverTimestamp,
   query,
@@ -16,10 +19,14 @@ import {
 } from "firebase/firestore";
 import { formatRelative } from "date-fns";
 import { v4 as uuidv4 } from "uuid";
+import { auth } from "../FirebaseConfig";
+
 
 
 const Chat = ({ user, logOut }) => {
   const [messages, setMessages] = useState([]);
+  const [currentUser] = useAuthState(auth);
+  console.log('cureennt',currentUser)
   const [chat, setChats] = useState("");
   const photo = user.photoURL;
   const id = uuidv4();
@@ -71,8 +78,10 @@ const Chat = ({ user, logOut }) => {
         {/* <h1 className="text-center p-2">Mychat Room</h1> */}
 
         {messages.map((message) => {
+          console.log(messages);
+          console.log('ususuus',user)
           return (
-            <div key={message.id} className=" hover:bg-[#393642] p-4 duration-150">
+            <div key={message.id} className={"hover:bg-[#393642] p-4 duration-150"}>
               <div className="flex items-center gap-2">
                 <img
                   src={message.imgUrl}
@@ -105,8 +114,9 @@ const Chat = ({ user, logOut }) => {
             onChange={(e) => {
               setChats(e.target.value);
             }}
+
           ></input>
-          <button type="submit"  className=" flex items-center px-2 gap-1 text-xl text-gray-400 hover:text-white">Send</button>
+          <button type="submit" disabled={!chat}  className=" flex items-center px-2 gap-1 text-xl text-gray-400 hover:text-white">Send</button>
         </form>
       </div>
     </div>
