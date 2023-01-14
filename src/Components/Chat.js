@@ -51,7 +51,8 @@ const Chat = ({ user, logOut }) => {
         createdAt: serverTimestamp(),
         id: id,
         imgUrl: photo,
-        userId:user.uid
+        userId:user.uid,
+        userName:user.displayName
       });
       console.log("sucsess");
     } catch (err) {
@@ -91,7 +92,7 @@ const Chat = ({ user, logOut }) => {
                 />
                 <div className="">
                   <div className="flex items-center gap-1">
-                    <span className="sm:text-sm md:text-xl text-red-600">{user?.displayName}</span>
+                    <span className="sm:text-sm md:text-xl text-red-600">{message.userName}</span>
                     {message.createdAt?.seconds ? (
                       <span className="text-sm text-gray-500 mt-1">
                         {formatDate(new Date(message.createdAt.seconds * 1000))}
