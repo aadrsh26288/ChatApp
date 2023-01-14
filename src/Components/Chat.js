@@ -51,6 +51,7 @@ const Chat = ({ user, logOut }) => {
         createdAt: serverTimestamp(),
         id: id,
         imgUrl: photo,
+        userId:user.uid
       });
       console.log("sucsess");
     } catch (err) {
@@ -78,10 +79,10 @@ const Chat = ({ user, logOut }) => {
         {/* <h1 className="text-center p-2">Mychat Room</h1> */}
 
         {messages.map((message) => {
-          console.log(messages);
+          // console.log(messages);
           console.log('ususuus',user)
           return (
-            <div key={message.id} className={"hover:bg-[#393642] p-4 duration-150"}>
+            <div key={message.id} className={ message.userId===user.uid?" hover:bg-[#393642] p-4 duration-150  flex justify-end":"hover:bg-[#393642] p-4 duration-150  flex justify-start"}>
               <div className="flex items-center gap-2">
                 <img
                   src={message.imgUrl}
